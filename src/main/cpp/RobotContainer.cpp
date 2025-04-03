@@ -4,14 +4,30 @@
 
 #include "RobotContainer.h"
 
+#include <frc/MathUtil.h>
 #include <frc2/command/Commands.h>
+#include <frc2/command/RunCommand.h>
+#include <utility>
 
 RobotContainer::RobotContainer() {
-  ConfigureBindings();
+    ConfigureBindings();
 }
 
-void RobotContainer::ConfigureBindings() {}
+void RobotContainer::ConfigureBindings() {
+    drive_subsystem.SetDefaultCommand(frc2::RunCommand(
+        [this] {
+            drive_subsystem.drive(
+                -units::meters_per_second_t{frc::ApplyDeadband(
+                    driver_controller.GetLeftY(), OIConstants::drive_deadband)},
+                -units::meters_per_second_t{frc::ApplyDeadband(
+                    driver_controller.GetLeftX(), OIConstants::drive_deadband)},
+                -units::radians_per_second_t{frc::ApplyDeadband(
+                    driver_controller.GetRightX(), OIConstants::drive_deadband)},
+                false);
+        },
+        {&drive_subsystem}));
+}
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
-  return frc2::cmd::Print("No autonomous command configured");
+    return frc2::cmd::Print("No autonomous command configured");
 }
