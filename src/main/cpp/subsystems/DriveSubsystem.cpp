@@ -1,6 +1,7 @@
 #include "subsystems/DriveSubsystem.h"
 
 #include <frc/DriverStation.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 #include <hal/FRCUsageReporting.h>
 #include <units/angle.h>
 #include <units/angular_velocity.h>
@@ -14,6 +15,8 @@ using namespace frc;
 
 DriveSubsystem::DriveSubsystem() {
     HAL_Report(HALUsageReporting::kResourceType_RobotDrive, HALUsageReporting::kRobotDriveSwerve_MaxSwerve);
+
+    SmartDashboard::PutData("Field", &field);
 }
 
 void DriveSubsystem::Periodic() {
@@ -60,6 +63,8 @@ void DriveSubsystem::Periodic() {
                         {front_left.get_position(), back_left.get_position(),
                          front_right.get_position(), back_right.get_position()});
     }
+
+    field.SetRobotPose(get_pose());
 }
 
 void DriveSubsystem::drive(units::meters_per_second_t x_speed, units::meters_per_second_t y_speed, units::radians_per_second_t rot, bool field_relative) {

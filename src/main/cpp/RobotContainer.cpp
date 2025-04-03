@@ -14,6 +14,8 @@ RobotContainer::RobotContainer() {
 }
 
 void RobotContainer::ConfigureBindings() {
+    driver_controller.Start().OnTrue(frc2::cmd::RunOnce([this] { drive_subsystem.zero_heading(); }));
+
     drive_subsystem.SetDefaultCommand(frc2::RunCommand(
         [this] {
             drive_subsystem.drive(

@@ -9,6 +9,7 @@
 #include <frc/kinematics/SwerveDriveKinematics.h>
 #include <frc/kinematics/SwerveDriveOdometry.h>
 #include <frc2/command/SubsystemBase.h>
+#include <frc/smartdashboard/Field2d.h>
 
 using namespace frc2;
 using namespace frc;
@@ -62,4 +63,5 @@ private:
         {0.5, 0.5, 30 * std::numbers::pi / 180}};
 
     bool use_localization = true;
+    Field2d field{};
 };
