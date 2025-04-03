@@ -26,6 +26,9 @@ void RobotContainer::ConfigureBindings() {
                 false);
         },
         {&drive_subsystem}));
+    
+    button_board.Button(3).OnTrue(coral_scoring_commands.score_l2().OnlyIf([this] { return !button_board.Button(2).Get(); }));
+    button_board.Button(4).OnTrue(coral_scoring_commands.score_l2());
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand() {

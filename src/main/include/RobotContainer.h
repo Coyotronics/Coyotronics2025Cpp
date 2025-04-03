@@ -10,6 +10,7 @@
 
 #include "subsystems/DriveSubsystem.h"
 #include "subsystems/ElevatorSubsystem.h"
+#include "commands/CoralScoringCommands.h"
 #include "Constants.h"
 
 class RobotContainer {
@@ -26,4 +27,7 @@ private:
 
     DriveSubsystem drive_subsystem;
     ElevatorSubsystem elevator_subsystem;
+    CoralSubsystem coral_subsystem;
+
+    CoralScoringCommands coral_scoring_commands{&elevator_subsystem, &coral_subsystem};
 };
